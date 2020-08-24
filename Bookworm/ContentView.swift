@@ -15,6 +15,8 @@ struct ContentView: View {
     @FetchRequest(entity: Book.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Book.title, ascending: true), NSSortDescriptor(keyPath: \Book.author, ascending: true)
     ]) var books: FetchedResults<Book>
     
+    
+    
     @State private var showingAddScreen = false
     
     var body: some View {
@@ -30,6 +32,7 @@ struct ContentView: View {
                     
                         VStack(alignment: .leading) {
                             Text(book.title ?? "Unknown Title")
+                                .foregroundColor(book.rating == 1 ? .red : .black)
                                 .font(.headline)
                             Text(book.author ?? "Unknown Author")
                                 .foregroundColor(.secondary)
@@ -40,14 +43,14 @@ struct ContentView: View {
             .onDelete(perform: deleteBooks)
             }
             
-                .navigationBarTitle("Bookworm") //, displayMode: .inline)
+                .navigationBarTitle("Bookworm", displayMode: .inline)
                 .navigationBarItems(leading: EditButton(), trailing: Button(action: {
                     self.showingAddScreen.toggle()
                     
                 })
                 {
                     Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 40))
+                        .font(.system(size: 25))
                         
                     
                 })

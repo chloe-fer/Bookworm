@@ -16,6 +16,12 @@ struct DetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingDeleteAlert = false
     
+    var dateFomatter: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter.string(from: book.date!)
+    }
+    
     var body: some View {
         
         GeometryReader { geometry in
@@ -37,10 +43,13 @@ struct DetailView: View {
                 Text(self.book.author ?? "Unknown Author")
                     .font(.title)
                     .foregroundColor(.secondary)
-                Text(self.book.review ?? "No review")
-                    .padding()
                 RatingView(rating: .constant(Int(self.book.rating)))
                     .font(.largeTitle)
+                Text(self.book.review ?? "No review")
+                    .padding()
+                Spacer()
+                
+                Text(self.dateFomatter)
                 
                 Spacer()
             }
